@@ -6,9 +6,9 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] targetPrefabs;
     public GameObject[] obstaclePrefabs;
     public Transform playerTransform;
+    public MapSpawner mapSpawner;
 
     [Header("Spawn Settings")]
-    public float spawnAheadDistance = 50f;
     public float spawnInterval = 1.5f;
     [Range(0f, 1f)]
     public float obstacleSpawnChance = 0.8f;
@@ -59,8 +59,12 @@ public class SpawnManager : MonoBehaviour
         while (GameManager.Instance.state != GameState.Playing)
             yield return new WaitForSeconds(1f);
 
-        while (true)
+        while (GameManager.Instance.state == GameState.Playing)
         {
+            float spawnAheadDistance = mapSpawner != null
+                ? mapSpawner.tilesToMaintain * mapSpawner.tileLength
+                : 50f;
+
             float spawnZ = playerTransform.position.z + spawnAheadDistance;
             GameObject[] prefabsToSpawn = Random.Range(0f, 1f) < obstacleSpawnChance
                 ? obstaclePrefabs
