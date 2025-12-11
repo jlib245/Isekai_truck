@@ -8,6 +8,9 @@ public class MapSpawner : MonoBehaviour
     public int tilesToMaintain = 6;
     public float tileLength = 20f;
 
+    [Header("Building Spawner")]
+    public BuildingSpawner buildingSpawner;
+
     private Queue<GameObject> activeTiles = new Queue<GameObject>();
     private Dictionary<int, Queue<GameObject>> inactiveTilesByType = new Dictionary<int, Queue<GameObject>>();
     private float nextSpawnZ;
@@ -31,6 +34,13 @@ public class MapSpawner : MonoBehaviour
         {
             SpawnTile();
             DespawnTile();
+        }
+
+        // 플레이어 뒤쪽 건물 제거
+        if (buildingSpawner != null)
+        {
+            float despawnDistance = tileLength * (tilesToMaintain + 2);
+            buildingSpawner.DespawnOldBuildings(playerTransform.position.z, despawnDistance);
         }
     }
 
@@ -74,6 +84,12 @@ public class MapSpawner : MonoBehaviour
 
         activeTiles.Enqueue(newTile);
         nextSpawnZ += tileLength;
+
+        // 건물 스폰
+        if (buildingSpawner != null)
+        {
+            buildingSpawner.SpawnBuildingsForTile(spawnPosition);
+        }
     }
 
     void DespawnTile()

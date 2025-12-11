@@ -30,8 +30,8 @@ public class Quest
     public string GetQuestDescription()
     {
         HeroType heroType = targetPrefab.GetComponent<HeroType>();
-        string heroName = heroType != null ? heroType.heroName : "용사";
-        return $"{heroName} {requiredCount}명 이세계로 보내기";
+        string heroName = heroType != null ? heroType.heroName : "Hero";
+        return $"Send {requiredCount} {heroName} to Isekai";
     }
 
     public string GetProgressText()

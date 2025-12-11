@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
         // GameManager의 현재 값으로 UI 업데이트
         if (moneyText != null)
         {
-            moneyText.text = $"보상금: {GameManager.Instance.money}G";
+            moneyText.text = $"Gold: {GameManager.Instance.money}G";
             Debug.Log($"[UIManager] moneyText 업데이트: {moneyText.text}");
         }
         else
@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
         Debug.Log($"[UIManager] UpdateMoney 호출 - newMoney: {newMoney}");
         if (moneyText != null)
         {
-            moneyText.text = "보상금: " + newMoney + "G";
+            moneyText.text = "Gold: " + newMoney + "G";
             Debug.Log($"[UIManager] moneyText 업데이트됨: {moneyText.text}");
         }
         else

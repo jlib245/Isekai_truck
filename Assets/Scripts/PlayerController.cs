@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     private Rigidbody rb;
     private bool isPlaying = false;
+    private AudioSource engineAudioSource;
 
     void Start()
     {
@@ -36,6 +37,9 @@ public class PlayerController : MonoBehaviour
 
         if (truckModel == null)
             truckModel = transform;
+
+        // 엔진 사운드 설정
+        SetupEngineSound();
 
         if (GameManager.Instance != null)
         {
@@ -53,6 +57,28 @@ public class PlayerController : MonoBehaviour
     {
         isPlaying = (newState == GameState.Playing);
         rb.isKinematic = !isPlaying;
+
+        // 엔진 사운드 제어
+        if (engineAudioSource != null)
+        {
+            if (isPlaying)
+                engineAudioSource.Play();
+            else
+                engineAudioSource.Stop();
+        }
+    }
+
+    void SetupEngineSound()
+    {
+        if (AudioManager.Instance == null || AudioManager.Instance.CarEngineClip == null)
+            return;
+
+        engineAudioSource = gameObject.AddComponent<AudioSource>();
+        engineAudioSource.clip = AudioManager.Instance.CarEngineClip;
+        engineAudioSource.loop = true;
+        engineAudioSource.playOnAwake = false;
+        engineAudioSource.volume = 0.7f;
+        engineAudioSource.spatialBlend = 0f; // 2D 사운드
     }
 
     void Update()

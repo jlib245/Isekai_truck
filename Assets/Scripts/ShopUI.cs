@@ -46,7 +46,7 @@ public class ShopUI : MonoBehaviour
 
         // 총 금액 표시
         if (totalMoneyText != null)
-            totalMoneyText.text = "보유 골드: " + GameManager.Instance.totalMoney + "G";
+            totalMoneyText.text = "Total Gold: " + GameManager.Instance.totalMoney + "G";
 
         // HP 업그레이드 정보
         UpdateHPUpgradeUI();
@@ -66,7 +66,7 @@ public class ShopUI : MonoBehaviour
             hpLevelText.text = $"Lv.{currentLevel}";
 
         if (hpEffectText != null)
-            hpEffectText.text = $"최대 HP: {currentHP} → {nextHP}";
+            hpEffectText.text = $"Max HP: {currentHP} -> {nextHP}";
 
         if (hpCostText != null)
             hpCostText.text = $"{cost}G";
@@ -90,7 +90,7 @@ public class ShopUI : MonoBehaviour
             invincibilityLevelText.text = $"Lv.{currentLevel}";
 
         if (invincibilityEffectText != null)
-            invincibilityEffectText.text = $"무적 시간: {currentDuration:F1}초 → {nextDuration:F1}초";
+            invincibilityEffectText.text = $"Invincible: {currentDuration:F1}s -> {nextDuration:F1}s";
 
         if (invincibilityCostText != null)
             invincibilityCostText.text = $"{cost}G";
@@ -105,6 +105,12 @@ public class ShopUI : MonoBehaviour
 
     void OnHPUpgradeClicked()
     {
+        // 버튼 클릭 사운드
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
+
         if (UpgradeManager.Instance != null)
         {
             bool success = UpgradeManager.Instance.PurchaseHPUpgrade();
@@ -122,6 +128,12 @@ public class ShopUI : MonoBehaviour
 
     void OnInvincibilityUpgradeClicked()
     {
+        // 버튼 클릭 사운드
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
+
         if (UpgradeManager.Instance != null)
         {
             bool success = UpgradeManager.Instance.PurchaseInvincibilityUpgrade();

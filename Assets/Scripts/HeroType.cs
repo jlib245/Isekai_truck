@@ -7,13 +7,17 @@ using UnityEngine;
 public class HeroType : MonoBehaviour
 {
     [Header("Hero Information")]
-    public string heroName = "용사";
+    public string heroName = "Hero";
 
     [TextArea(2, 4)]
-    public string description = "이세계로 보내야 할 용사";
+    public string description = "A hero to send to Isekai";
 
     // 프리팹 구분용 - 각 프리팹마다 고유한 ID를 가져야 함
     public int heroID = 0;
+
+    [Header("Golden Hero")]
+    public bool isGolden = false;
+    public int goldenBonusMultiplier = 3; // 황금 용사 보상 배율
 
     public string GetHeroName()
     {

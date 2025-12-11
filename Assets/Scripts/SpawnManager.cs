@@ -14,6 +14,11 @@ public class SpawnManager : MonoBehaviour
     public float obstacleSpawnChance = 0.8f;
     public float spawnHeightY = 0.5f;
 
+    [Header("Golden Hero")]
+    [Range(0f, 1f)]
+    public float goldenHeroChance = 0.05f; // 5% 확률
+    public Material goldenMaterial;
+
     private const int MIN_LANE = -2;
     private const int MAX_LANE = 2;
 
@@ -84,6 +89,36 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPosition = new Vector3(spawnX, spawnHeightY, spawnZ);
 
         GameObject prefabToSpawn = prefabs[Random.Range(0, prefabs.Length)];
-        Instantiate(prefabToSpawn, spawnPosition, prefabToSpawn.transform.rotation);
+        GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, prefabToSpawn.transform.rotation);
+
+        // 용사인 경우 황금 용사 확률 체크
+        HeroType heroType = spawnedObject.GetComponent<HeroType>();
+        if (heroType != null && Random.value < goldenHeroChance)
+        {
+            MakeGoldenHero(spawnedObject, heroType);
+        }
+    }
+
+    void MakeGoldenHero(GameObject hero, HeroType heroType)
+    {
+        heroType.isGolden = true;
+
+        // 머티리얼이 설정되어 있으면 황금색으로 변경
+        if (goldenMaterial != null)
+        {
+            Renderer[] renderers = hero.GetComponentsInChildren<Renderer>();
+            foreach (Renderer r in renderers)
+            {
+                // 모든 머티리얼을 황금색으로 교체
+                Material[] newMaterials = new Material[r.materials.Length];
+                for (int i = 0; i < newMaterials.Length; i++)
+                {
+                    newMaterials[i] = goldenMaterial;
+                }
+                r.materials = newMaterials;
+            }
+        }
+
+        Debug.Log($"[SpawnManager] 황금 용사 스폰! {heroType.heroName}");
     }
 }

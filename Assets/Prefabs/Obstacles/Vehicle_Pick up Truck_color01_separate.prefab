@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 400008}
   - component: {fileID: 8143746644346857956}
   - component: {fileID: 8331572680170472714}
-  - component: {fileID: 8711894708925835287}
+  - component: {fileID: 2720162754517313524}
   m_Layer: 0
   m_Name: Vehicle_Pick up Truck_color01_separate
   m_TagString: Obstacle
@@ -502,7 +502,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8711894708925835287
+--- !u!114 &2720162754517313524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -518,4 +518,18 @@ MonoBehaviour:
   maxDriveSpeed: 5
   laneCorrectionForce: 20
   damping: 2
-  stunDuration: 1
+  moveTowardsPlayer: 1
+  randomizeSpeed: 1
+  minSpeedMultiplier: 0.7
+  maxSpeedMultiplier: 1.3
+  enableLaneChange: 1
+  laneChangeInterval: 3
+  laneDistance: 3
+  minLane: -2
+  maxLane: 2
+  enableAvoidance: 1
+  frontRayDistance: 5
+  sideRayDistance: 2
+  rotationAngle: 15
+  rotationSpeed: 10
+  visualModel: {fileID: 0}

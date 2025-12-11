@@ -10,6 +10,8 @@ public class GameOverController : MonoBehaviour
     public Text totalMoneyText;     // 누적 총 금액
     public Text heroCountText;
     public Text obstacleCountText;
+    public Text correctHeroText;    // 퀘스트 대상 용사 수
+    public Text wrongHeroText;      // 잘못 친 용사 수
     public Button restartButton;
     public Button quitButton;
 
@@ -25,10 +27,19 @@ public class GameOverController : MonoBehaviour
     public float randomPositionRange = 3f; // 떨어지는 위치의 랜덤 범위
     public float randomTorqueStrength = 5f; // 회전력의 강도
 
+    [Header("Count Animation")]
+    public float countDuration = 1.5f; // 카운트 애니메이션 시간
+    public float countStartDelay = 0.5f; // 시작 전 딜레이
+
     [Header("Camera Settings")]
     public Camera gameOverCamera;
     public Vector3 cameraPosition = new Vector3(0, 15, -10);
     public Vector3 cameraRotation = new Vector3(45, 0, 0);
+
+    [Header("Result Image")]
+    public Image resultImage;
+    public Sprite goddessSprite;    // 플러스일 때 보상금 주는 여신님
+    public Sprite billSprite;       // 마이너스일 때 청구서
 
     void Start()
     {
@@ -47,6 +58,7 @@ public class GameOverController : MonoBehaviour
         SetupCamera();
         DisplayCollectedObjects();
         UpdateUI();
+        UpdateResultImage();
         SetupButtons();
     }
 
@@ -108,6 +120,13 @@ public class GameOverController : MonoBehaviour
                 BoxCollider collider = obj.AddComponent<BoxCollider>();
             }
 
+            // Animator 다시 활성화
+            Animator animator = obj.GetComponentInChildren<Animator>();
+            if (animator != null)
+            {
+                animator.enabled = true;
+            }
+
             // 떨어지는 애니메이션 시작
             StartCoroutine(DropObject(obj, i * dropDelay));
         }
@@ -161,26 +180,83 @@ public class GameOverController : MonoBehaviour
     {
         if (GameManager.Instance == null) return;
 
-        // 이번 게임 수익 표시
+        // 초기값 0으로 설정
+        if (moneyText != null) moneyText.text = "This Run: 0G";
+        if (totalMoneyText != null) totalMoneyText.text = "Total Gold: 0G";
+        if (heroCountText != null) heroCountText.text = "Heroes: 0";
+        if (obstacleCountText != null) obstacleCountText.text = "Obstacles: 0";
+        if (correctHeroText != null) correctHeroText.text = "Correct Heroes: 0";
+        if (wrongHeroText != null) wrongHeroText.text = "Wrong Heroes: 0";
+
+        // 카운트 애니메이션 시작
+        StartCoroutine(AnimateAllCounts());
+    }
+
+    IEnumerator AnimateAllCounts()
+    {
+        yield return new WaitForSeconds(countStartDelay);
+
+        // 모든 카운트 애니메이션을 동시에 시작
         if (moneyText != null)
-            moneyText.text = "이번 게임 수익: " + GameManager.Instance.money + "G";
-
-        // 총 누적 금액 표시
+            StartCoroutine(AnimateCount(moneyText, "This Run: ", GameManager.Instance.money, "G"));
         if (totalMoneyText != null)
-            totalMoneyText.text = "총 누적 금액: " + GameManager.Instance.totalMoney + "G";
-
-        // 용사 수 표시
+            StartCoroutine(AnimateCount(totalMoneyText, "Total Gold: ", GameManager.Instance.totalMoney, "G"));
         if (heroCountText != null)
+            StartCoroutine(AnimateCount(heroCountText, "Heroes: ", GameManager.Instance.GetCollectedHeroes().Count, ""));
+        if (obstacleCountText != null)
+            StartCoroutine(AnimateCount(obstacleCountText, "Obstacles: ", GameManager.Instance.obstacleHitCount, ""));
+        if (correctHeroText != null)
+            StartCoroutine(AnimateCount(correctHeroText, "Correct Heroes: ", GameManager.Instance.correctHeroCount, ""));
+        if (wrongHeroText != null)
+            StartCoroutine(AnimateCount(wrongHeroText, "Wrong Heroes: ", GameManager.Instance.wrongHeroCount, ""));
+    }
+
+    IEnumerator AnimateCount(Text textComponent, string prefix, int targetValue, string suffix)
+    {
+        float elapsed = 0f;
+        int currentValue = 0;
+
+        while (elapsed < countDuration)
         {
-            int heroCount = GameManager.Instance.GetCollectedHeroes().Count;
-            heroCountText.text = "Heroes: " + heroCount;
+            elapsed += Time.deltaTime;
+            float progress = elapsed / countDuration;
+
+            // EaseOut 효과 (처음엔 빠르고 끝에 느려짐)
+            progress = 1f - Mathf.Pow(1f - progress, 3f);
+
+            currentValue = Mathf.RoundToInt(Mathf.Lerp(0, targetValue, progress));
+            textComponent.text = prefix + currentValue + suffix;
+
+            yield return null;
         }
 
-        // 장애물 수 표시
-        if (obstacleCountText != null)
+        // 최종값 확실히 설정
+        textComponent.text = prefix + targetValue + suffix;
+    }
+
+    void UpdateResultImage()
+    {
+        if (resultImage == null) return;
+        if (GameManager.Instance == null) return;
+
+        // 이번 게임 수익에 따라 이미지 변경
+        if (GameManager.Instance.money >= 0)
         {
-            int obstacleCount = GameManager.Instance.GetCollectedObstacles().Count;
-            obstacleCountText.text = "Obstacles: " + obstacleCount;
+            // 플러스: 여신님 이미지
+            if (goddessSprite != null)
+            {
+                resultImage.sprite = goddessSprite;
+                resultImage.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            // 마이너스: 청구서 이미지
+            if (billSprite != null)
+            {
+                resultImage.sprite = billSprite;
+                resultImage.gameObject.SetActive(true);
+            }
         }
     }
 

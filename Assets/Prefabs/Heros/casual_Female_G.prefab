@@ -846,8 +846,8 @@ GameObject:
   - component: {fileID: -4720535539113630595}
   - component: {fileID: 2421899621797907324}
   - component: {fileID: -5928768443355298260}
-  - component: {fileID: -2235804724561918802}
   - component: {fileID: -2483853570823733617}
+  - component: {fileID: 7612033272506380286}
   m_Layer: 0
   m_Name: casual_Female_G
   m_TagString: Target
@@ -946,32 +946,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54909e8f15278d04cb353f83bb1fc763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroName: "\uCE90\uC8FC\uC5BC \uC5EC\uC790"
+  heroName: Woman
   description: "\uC774\uC138\uACC4\uB85C \uBCF4\uB0B4\uC57C \uD560 \uC6A9\uC0AC"
   heroID: 1
---- !u!136 &-2235804724561918802
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6584613354768528393}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  isGolden: 0
+  goldenBonusMultiplier: 3
 --- !u!114 &-2483853570823733617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -992,6 +971,27 @@ MonoBehaviour:
   useAnimation: 1
   walkAnimationName: locom_f_jogging_30f
   rotateToMoveDirection: 1
+--- !u!65 &7612033272506380286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584613354768528393}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6646269780412227657
 GameObject:
   m_ObjectHideFlags: 0

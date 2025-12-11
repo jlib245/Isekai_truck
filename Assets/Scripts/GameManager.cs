@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
     private List<GameObject> collectedHeroes = new List<GameObject>();
     private List<GameObject> collectedObstacles = new List<GameObject>();
 
+    [Header("Stats")]
+    public int correctHeroCount = 0;   // 퀘스트 대상 용사
+    public int wrongHeroCount = 0;     // 잘못 친 용사
+    public int obstacleHitCount = 0;   // 장애물 충돌 수
+
     public delegate void MoneyChangeHandler(int newMoney);
     public event MoneyChangeHandler OnMoneyChanged;
 
@@ -114,7 +119,7 @@ public class GameManager : MonoBehaviour
     {
         if (state != GameState.Playing) return;
         money -= amount;
-        if (money < 0) money = 0;
+        // 마이너스 허용
         OnMoneyChanged?.Invoke(money);
     }
 
@@ -240,9 +245,18 @@ public class GameManager : MonoBehaviour
         collectedHeroes.Clear();
         collectedObstacles.Clear();
 
+        // 난이도 초기화
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.ResetDifficulty();
+        }
+
         // 상태 초기화 (현재 게임 돈만 리셋, 누적 금액은 유지)
         money = 0;
         playerHP = maxHP;
+        correctHeroCount = 0;
+        wrongHeroCount = 0;
+        obstacleHitCount = 0;
         SetState(GameState.Ready);
 
         // 씬 로드 후 게임 시작

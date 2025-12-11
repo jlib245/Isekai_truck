@@ -141,8 +141,8 @@ GameObject:
   - component: {fileID: 1058556038379161208}
   - component: {fileID: -3097941422677383740}
   - component: {fileID: -8460795392955329807}
-  - component: {fileID: 1922680758007334187}
   - component: {fileID: -1483357242393780989}
+  - component: {fileID: -2832399265664131621}
   m_Layer: 0
   m_Name: casual_Male_G
   m_TagString: Target
@@ -241,32 +241,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54909e8f15278d04cb353f83bb1fc763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroName: "\uCE90\uC8FC\uC5BC \uB0A8\uC790"
+  heroName: man
   description: "\uC774\uC138\uACC4\uB85C \uBCF4\uB0B4\uC57C \uD560 \uC6A9\uC0AC"
   heroID: 2
---- !u!136 &1922680758007334187
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616406060653692748}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  isGolden: 0
+  goldenBonusMultiplier: 3
 --- !u!114 &-1483357242393780989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +266,27 @@ MonoBehaviour:
   useAnimation: 1
   walkAnimationName: locom_m_jogging_30f
   rotateToMoveDirection: 1
+--- !u!65 &-2832399265664131621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616406060653692748}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1719302345640664642
 GameObject:
   m_ObjectHideFlags: 0

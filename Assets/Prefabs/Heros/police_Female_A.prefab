@@ -896,8 +896,8 @@ GameObject:
   - component: {fileID: 5544880246915493832}
   - component: {fileID: 6763719633579089835}
   - component: {fileID: -4930045053933566799}
-  - component: {fileID: 158017461311923758}
   - component: {fileID: 4502186638917373751}
+  - component: {fileID: -575153533056756435}
   m_Layer: 0
   m_Name: police_Female_A
   m_TagString: Target
@@ -996,32 +996,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54909e8f15278d04cb353f83bb1fc763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroName: "\uACBD\uCC30\uAD00"
+  heroName: police
   description: "\uC774\uC138\uACC4\uB85C \uBCF4\uB0B4\uC57C \uD560 \uC6A9\uC0AC"
   heroID: 5
---- !u!136 &158017461311923758
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5557327951299580288}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  isGolden: 0
+  goldenBonusMultiplier: 3
 --- !u!114 &4502186638917373751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,6 +1021,27 @@ MonoBehaviour:
   useAnimation: 1
   walkAnimationName: locom_f_jogging_30f
   rotateToMoveDirection: 1
+--- !u!65 &-575153533056756435
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557327951299580288}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6265362778501788183
 GameObject:
   m_ObjectHideFlags: 0
