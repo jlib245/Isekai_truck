@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource bgmSource;
+    
 
     [Header("SFX Clips")]
     [SerializeField] private AudioClip collisionClip;
@@ -20,6 +21,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip questCompleteClip;
     [SerializeField] private AudioClip carEngineClip;
     [SerializeField] private AudioClip tireScreechClip;
+    [SerializeField] private AudioClip gameOverSFX;
 
     // 차량이 엔진음에 접근할 수 있도록 public property
     public AudioClip CarEngineClip => carEngineClip;
@@ -34,7 +36,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float sfxVolume = 0.7f;
     [Range(0f, 1f)]
     [SerializeField] private float bgmVolume = 0.5f;
-
+    public void PlayGameOverSound()
+    {
+            // 중요하니까 볼륨 1.0f로 재생
+            PlaySFX(gameOverSFX, 1.0f);
+    }
     private void Awake()
     {
         // 싱글톤 패턴

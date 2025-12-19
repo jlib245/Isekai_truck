@@ -54,7 +54,15 @@ public class GameOverController : MonoBehaviour
             Debug.Log("GameOverController: GameManager를 기다리는 중...");
             yield return null;
         }
-
+        string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+    
+        if (currentSceneName == "GameOverScene")
+        {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayGameOverSound();
+            }
+        }
         SetupCamera();
         DisplayCollectedObjects();
         UpdateUI();

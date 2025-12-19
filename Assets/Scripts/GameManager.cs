@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     public float gameStartDelay = 1f;
 
+    // [추가] 가이드 창 패널을 연결할 변수
+    [Header("UI Reference")]
+    public GameObject guidePanel; 
+
     [Header("Hero Collection")]
     public Transform heroStorageParent;
     public Vector3 storageAreaCenter = new Vector3(0, 0, -30);
@@ -68,6 +72,39 @@ public class GameManager : MonoBehaviour
         ApplyUpgrades();
         playerHP = maxHP;
         SetState(GameState.Ready);
+
+        // [변경] 가이드 창이 있으면 띄우고 대기, 없으면 바로 시작
+        if (guidePanel != null)
+        {
+            guidePanel.SetActive(true); // 패널 켜기
+            Time.timeScale = 0f;        // 게임 시간 정지
+        }
+        else
+        {
+            // 가이드 창이 연결 안 되어 있으면 기존처럼 바로 시작
+            StartCoroutine(StartGameDelay());
+        }
+    }
+
+    // [추가] UI의 Start 버튼과 연결할 함수
+    public void OnClickStartGame()
+    {
+        // 1. 가이드 창 끄기
+        if (guidePanel != null)
+        {
+            guidePanel.SetActive(false);
+        }
+
+        // 2. 버튼 소리 재생 (AudioManager가 있다면)
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound(); 
+        }
+
+        // 3. 멈췄던 시간 다시 흐르게 하기
+        Time.timeScale = 1f;
+
+        // 4. 게임 시작 카운트다운/딜레이 시작
         StartCoroutine(StartGameDelay());
     }
 
